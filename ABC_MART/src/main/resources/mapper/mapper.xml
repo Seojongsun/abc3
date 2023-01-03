@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.steam.abc.review.dto">
+
+<!--  
+create table review
+(	
+	rvno NUMBER(20)  NOT NULL,
+	rvcontent   VARCHAR2(2000),
+	rvorderno NUMBER(20),
+	mid VARCHAR2(20),
+	rvdate date DEFAULT SYSDATE,
+	rvrating    VARCHAR2(20),
+	rvsize  VARCHAR2(20),
+	rvcolor VARCHAR2(20),
+    rvfile BLOB,
+	myfootball VARCHAR2(20),
+	myinstep	VARCHAR2(20),
+	mysize  VARCHAR2(20)
+    ); 
+    -->
+    
+    <!--   
+    ALTER TABLE review ADD CONSTRAINT review_pk PRIMARY KEY (rvno); 
+    -->
+    
+    <!--  
+    
+    
+    COMMENT ON TABLE review IS '리뷰 테이블';
+
+COMMENT ON COLUMN review.rvno IS '리뷰 번호';
+COMMENT ON COLUMN review.rvcontent IS '리뷰 내용';
+COMMENT ON COLUMN review.rvorderno IS '주문 번호';
+COMMENT ON COLUMN review.mid IS '회원 아이디';
+COMMENT ON COLUMN review.rvdate IS '리뷰 작성 날짜';
+COMMENT ON COLUMN review.rvrating IS '리뷰 평점';
+COMMENT ON COLUMN review.rvsize IS '사이즈 평가';
+COMMENT ON COLUMN review.rvcolor IS '색상 평가';
+COMMENT ON COLUMN review.rvfile IS '리뷰 관련 파일';
+
+COMMENT ON COLUMN review.mysize IS '나의 평소 신발 사이즈';
+COMMENT ON COLUMN review.myfootball IS '나의 평소 발볼 사이즈';
+COMMENT ON COLUMN review.myinstep IS '나의 평소 발등 사이즈';
+
+     -->
+     
+     
+    <select id="selectAll" resultType="ReviewDTO">
+    
+    select rvno, 
+    rvcontent, 
+    rvorderno, 
+    mid, 
+    rvdate,
+    rvrating, 
+    rvsize, 
+    rvcolor, 
+    rvfile,
+    mysize,
+    myfootball,
+    myinstep
+    from REVIEW
+    
+    
+    </select>
+  
+
+
+</mapper>
