@@ -33,7 +33,7 @@ public class ReviewDTO {
 	
 	//======== 리뷰 테이블 ========
 	private int rvno;
-	private String content;
+	private String rvcontent;
 	private int rvorderno;
 	private String mid;
 	private String rvdate;

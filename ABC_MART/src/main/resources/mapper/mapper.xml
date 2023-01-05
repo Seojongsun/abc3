@@ -56,6 +56,7 @@ COMMENT ON COLUMN review.myinstep IS '나의 평소 발등 사이즈';
     rvorderno, 
     mid, 
     rvdate,
+<!--  	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') rvdate, -->
     rvrating, 
     rvsize, 
     rvcolor, 
@@ -65,9 +66,63 @@ COMMENT ON COLUMN review.myinstep IS '나의 평소 발등 사이즈';
     myinstep
     from REVIEW
     
+    </select>
+    
+    <select id="select" parameterType="ReviewDTO" resultType="ReviewDTO">
+    
+    select  rvno, 
+    rvcontent, 
+    rvorderno, 
+    mid, 
+    rvdate,
+    rvrating, 
+    rvsize, 
+    rvcolor, 
+    rvfile,
+    mysize,
+    myfootball,
+    myinstep from review
+    
+    where rvno = #{rvno}
     
     </select>
+    
+    <insert id="insert" parameterType="ReviewDTO">
+    
+    insert into review (rvno,
+    rvcontent,
+    rvorderno,
+    mid,
+    rvdate,
+    rvrating, 
+    rvsize, 
+    rvcolor, 
+<!--     rvfile, -->
+    mysize,
+    myfootball,
+    myinstep
+    )
+    
+    values(#{rvno},
+    #{rvcontent},
+    #{rvorderno},
+    #{mid},
+    sysdate,
+    #{rvrating}, 
+    #{rvsize}, 
+    #{rvcolor}, 
+<!--     #{rvfile},  -->
+    #{mysize}, 
+    #{myfootball}, 
+    #{myinstep}
+		)
+    
+    
+    
+    </insert>
+   
   
+
 
 
 </mapper>
