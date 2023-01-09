@@ -21,6 +21,9 @@ public class ReviewController {
 	
 	private ReviewService reviewService;
 	
+	
+	// ========= 리뷰 전체 조회 ===========
+	
 //	@RequestMapping(value = "ReviewSelect" , method = RequestMethod.GET)
 	@RequestMapping("/ReviewSelect")
 	public String list(Model model) {
@@ -29,6 +32,7 @@ public class ReviewController {
 		return "./review/review_select_all_view";
 	}
 	
+	// ============ 리뷰 상세 조회 ========
 	
 //	@RequestMapping (value = "/ReviewSelectDetail", method = RequestMethod.GET)
 	@RequestMapping ("/ReviewSelectDetail")
@@ -38,7 +42,7 @@ public class ReviewController {
 		return "./review/review_select_view";
 	}
 	
-	// ======= 인서트 =============
+	// ======= 리뷰 작성  =============
 	
 	@RequestMapping("/ReviewInsert")
 	public String insert() {
@@ -47,15 +51,52 @@ public class ReviewController {
 	
 	@RequestMapping(value = "/ReviewInsert", method = RequestMethod.POST)
 	public String insert ( Model model, ReviewDTO reviewDTO) {
-		model.addAttribute("list", reviewService.reviewSelectAll());
+		//model.addAttribute("list", reviewService.reviewSelectAll());
 		reviewService.reviewInsert(reviewDTO);
-		log.info("리뷰 작성 값 확인 ===============" + model);
+		model.addAttribute("reviewDTO");
+		System.out.println(reviewDTO);
+		log.info("리뷰 작성 값 확인 ===============" +reviewDTO);
 		log.info("리뷰 작성 값 확인 ===============" + reviewService);
 		return "./review/review_insert_view";
 	}
 	
 	
+	// ========== 리뷰 수정 ==============
 	
+	@RequestMapping(value = "ReviewUpdate", method = RequestMethod.GET)
+	
+	public String update(Model model, ReviewDTO reviewDTO) {
+		
+		model.addAttribute("reviewDTO", reviewService.reviewSelect(reviewDTO.getRvno()));
+		return "./review/review_update";
+	}
+	
+	@RequestMapping(value = "ReviewUpdate", method = RequestMethod.POST)
+	
+	public String update(ReviewDTO reviewDTO) {
+		
+		reviewService.reviewUpdate(reviewDTO);
+		return "./review/review_update_view";
+	
+	}
+	
+	// =========== 리뷰 삭제 ============
+	
+	@RequestMapping(value = "/ReviewDelete", method = RequestMethod.GET)
+//	@RequestMapping("./ReviewDelete")
+	
+	public String delete() {
+		return "./review/review_delete";
+	}
+	
+	@RequestMapping(value = "/ReviewDelete", method = RequestMethod.POST)
+	
+	public String delete(ReviewDTO reviewDTO) {
+		
+		reviewService.reviewDelete(reviewDTO.getRvno());
+		return "./review/review_delete_view";
+	}
+
 	
 
 }

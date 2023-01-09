@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>후기 작성</title>
+<title> 리뷰 삭제 </title>
 
 
 </head>
@@ -19,31 +19,31 @@
 	<button type="button" onclick="location.href='./ReviewSelect'">홈</button>
 
 
-	<form id="insert" name="insert" action="./ReviewInsert" method="post">
+	<form id="delete" name="delete" action="./ReviewDelete" method="post">
 		<!-- <form  id="insert" name="insert" action="./ReviewInsert" method="post" enctype="multipart/form-data"> -->
 <%-- 		<c:set var="rvdate2" value="<%=new java.util.Date()%>"/> --%>
 
-		
-		임시 리뷰내용 <input type="text" name="rvcontent" id="rvcontent"> <br>
-		임시 오더넘버 <input type="number" name="rvorderno" id="rvorderno">
-		<br> 임시 아이디 <input type="text" name="mid" id="mid"> <br>
+		임시 리뷰 번호 <input type="number" name="rvno" id="rvno" value="${param.rvno}" readonly="readonly"> <br>
+<%-- 		임시 리뷰내용 <input type="text" name="rvcontent" id="rvcontent" value="${reviewDTO.rvcontent}"> <br> --%>
+<%-- 		임시 오더넘버 <input type="number" name="rvorderno" id="rvorderno" value="${reviewDTO.rvorderno}"> --%>
+<%-- 		<br> 임시 아이디 <input type="text" name="mid" id="mid" value="${reviewDTO.mid}"> <br> --%>
 
 <!-- 		 임시 날짜 <input type="text" name="rvdate" id="rvdate" > -->
 <%-- 		 value="<fmt:formatDate value="${rvdate2}" pattern="YYYY-MM-DD "/>">	<br> --%>
 
-		임시 평점 <input type="text" name="rvrating" id="rvrating"> <br>
-		임시 사이즈평가 <input type="text" name="rvsize" id="rvsize"> <br>
-		임시 컬러평가 <input type="text" name="rvcolor" id="rvcolor"> <br>
+<%-- 		임시 평점 <input type="text" name="rvrating" id="rvrating" value="${reviewDTO.rvrating}"> <br> --%>
+<%-- 		임시 사이즈평가 <input type="text" name="rvsize" id="rvsize" value="${reviewDTO.rvsize}"> <br> --%>
+<%-- 		임시 컬러평가 <input type="text" name="rvcolor" id="rvcolor" value="${reviewDTO.rvcolor}"> <br> --%>
 
 		<!--  임시 파일 <input type="file" name="rvfile" id="rvfile">	<br> -->
 
-		임시 나의사이즈 <input type="text" name="mysize" id="mysize"> <br>
-		임시 나의발볼 <input type="text" name="myfootball" id="myfootball">
-		<br> 임시 나의발등 <input type="text" name="myinstep" id="myinstep">
-		<br>
+<%-- 		임시 나의사이즈 <input type="text" name="mysize" id="mysize" value="${reviewDTO.mysize}"> <br> --%>
+<%-- 		임시 나의발볼 <input type="text" name="myfootball" id="myfootball" value="${reviewDTO.myfootball}"> --%>
+<%-- 		<br> 임시 나의발등 <input type="text" name="myinstep" id="myinstep" value="${reviewDTO.myinstep}"> --%>
+<!-- 		<br> -->
 
 		<div style="text-align: center;">
-			--> <input type="submit" value="상품 후기 등록"> <input
+			--> <input type="submit" value="리뷰 삭제"> <input
 				type="reset" value="취소">
 		</div>
 

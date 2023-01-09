@@ -11,6 +11,18 @@
 
 ${reviewDTO}
 
+<div>
+<a href="./ReviewUpdate?rvno=${reviewDTO.rvno}" >
+리뷰 수정
+</a>
+</div>
+
+<div>
+<a href="./ReviewDelete?rvno=${reviewDTO.rvno}" >
+리뷰 삭제
+</a>
+</div>
+
 
 </body>
 </html>

@@ -49,9 +49,28 @@ COMMENT ON COLUMN review.myinstep IS '나의 평소 발등 사이즈';
      -->
      
      
+<!--      create sequence sqrvno -->
+<!--     INCREMENT by 1 -->
+<!--     START with 1 -->
+<!--     MINVALUE 1 -->
+<!--     MAXVALUE 99999; -->
+   
+<!--    SELECT SQRVNO.NEXTVAL -->
+<!--   FROM review; -->
+
+
+<!-- 삭제 -->
+
+<!-- DROP SEQUENCE [시퀀스명] -->
+
+<!-- - 시퀀스 삭제 -->
+
+     
+     
     <select id="selectAll" resultType="ReviewDTO">
     
     select rvno, 
+<!--     select sqrvno.NEXTVAL,  -->
     rvcontent, 
     rvorderno, 
     mid, 
@@ -64,13 +83,19 @@ COMMENT ON COLUMN review.myinstep IS '나의 평소 발등 사이즈';
     mysize,
     myfootball,
     myinstep
+    
     from REVIEW
+    
+  	 ORDER BY rvdate DESC, rvno DESC 
+  	 
+<!--   	 , rvno ASC -->
     
     </select>
     
     <select id="select" parameterType="ReviewDTO" resultType="ReviewDTO">
     
     select  rvno, 
+<!--     select sqrvno,  -->
     rvcontent, 
     rvorderno, 
     mid, 
@@ -88,7 +113,12 @@ COMMENT ON COLUMN review.myinstep IS '나의 평소 발등 사이즈';
     </select>
     
     <insert id="insert" parameterType="ReviewDTO">
+    	
+    	
     
+<!--     insert into review (rvno, -->
+
+	
     insert into review (rvno,
     rvcontent,
     rvorderno,
@@ -103,7 +133,8 @@ COMMENT ON COLUMN review.myinstep IS '나의 평소 발등 사이즈';
     myinstep
     )
     
-    values(#{rvno},
+<!--     values(#{rvno}, -->
+    values(rvno_seq.nextval,
     #{rvcontent},
     #{rvorderno},
     #{mid},
@@ -115,11 +146,45 @@ COMMENT ON COLUMN review.myinstep IS '나의 평소 발등 사이즈';
     #{mysize}, 
     #{myfootball}, 
     #{myinstep}
-		)
+		 )
+		 
+		
     
     
+       
     
     </insert>
+    
+    
+    <update id="update" parameterType="ReviewDTO">
+    
+    update review set
+    	
+    rvcontent = #{rvcontent},
+    rvorderno = #{rvorderno},
+    mid	= #{mid},
+    rvdate	= sysdate,
+    rvrating	= #{rvrating},
+    rvsize	= #{rvsize},
+    rvcolor	= #{rvcolor},
+<!--     rvfile = #{rvfile} -->
+    mysize = #{mysize},
+    myfootball	= #{myfootball},
+    myinstep	= #{myinstep}
+    
+    where rvno = #{rvno}
+    
+    </update>
+    
+    <delete id="delete" parameterType="ReviewDTO">
+    
+    delete from review
+    
+    where rvno = #{rvno}
+    
+    
+    
+    </delete>
    
   
 
