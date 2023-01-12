@@ -26,7 +26,11 @@ public class ReviewService {
 	
 	public void reviewInsert(ReviewDTO reviewDTO) {
 		
+//		try {
 			reviewDAO.insert(reviewDTO);
+//		} catch (DataIntegrityViolationException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	public void reviewUpdate (ReviewDTO reviewDTO) {

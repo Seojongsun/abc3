@@ -8,18 +8,39 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
+
+
+
 <meta charset="UTF-8">
+<script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
 <title>후기 작성</title>
+
+ <style type="text/css">
+	.inputArea {margin:10px 0;} 
+ 	select { width: 100px;} 
+ 	label {display:inline-block;; width: 90px; padding: 5px;} 
+	
+	input {width: 150px;} 
+	
+	.select_img img {margin: 20px 0;} 
+}] 
+	
+</style>
+
 
 
 </head>
 <body>
 
 
+
+
 	<button type="button" onclick="location.href='./ReviewSelect'">홈</button>
 
 
-	<form id="insert" name="insert" action="./ReviewInsert" method="post">
+	<form id="insert" name="insert" action="./ReviewInsert" method="post" enctype="multipart/form-data">
 		<!-- <form  id="insert" name="insert" action="./ReviewInsert" method="post" enctype="multipart/form-data"> -->
 <%-- 		<c:set var="rvdate2" value="<%=new java.util.Date()%>"/> --%>
 
@@ -36,6 +57,30 @@
 		임시 컬러평가 <input type="text" name="rvcolor" id="rvcolor"> <br>
 
 		<!--  임시 파일 <input type="file" name="rvfile" id="rvfile">	<br> -->
+		
+		<div class="inputArea">
+   <label for="rvImg">이미지</label>
+   <input type="file" id="rvImg" name="file" />
+   <div class="select_img"><img src="" /></div>
+   
+   <script type="text/javascript">
+   $("#rvImg").change(function(){
+	     if(this.files && this.files[0]) {
+	      var reader = new FileReader;
+	      reader.onload = function(data) {
+	       $(".select_img img").attr("src", data.target.result).width(500);          
+	      }
+	      reader.readAsDataURL(this.files[0]);
+	     }
+	    });
+   </script>
+   
+   <%=request.getRealPath("/") %>
+   
+
+</div>
+
+		
 
 		임시 나의사이즈 <input type="text" name="mysize" id="mysize"> <br>
 		임시 나의발볼 <input type="text" name="myfootball" id="myfootball">

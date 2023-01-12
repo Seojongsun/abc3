@@ -9,9 +9,20 @@
 
 </head>
 <body>
-	<script type="text/javascript">
-		alert("입력하신 ${reviewDTO.rvno}번의 리뷰 번호를 등록하였습니다.")
+
+<script type="text/javascript">
+		alert("입력하신 ${list.get(0).rvno}번의 리뷰 번호를 등록하였습니다.")
 		location.href = "./ReviewSelect"
 	</script>
+
+
+
+
+
+
+	<%--객체값과 파라미터값이 같은지를 확인하고 반환한다.--%>
+	
+	
+	
 </body>
 </html>

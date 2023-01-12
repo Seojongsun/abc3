@@ -18,8 +18,8 @@
 	<!-- 빈(Bean)의 등록 여부와 관계없이 어노테이션을 활성화한다. -->
 	
 	
-	<context:component-scan
-		base-package="project.steam.abc" />
+	<context:component-scan base-package="project.steam.abc" />
+		
 		
 	<!-- method 속성값인 clone 명령어는 데이터베이스의 자원을 복제하여 연결 시간을 단축한다. -->
 	<bean

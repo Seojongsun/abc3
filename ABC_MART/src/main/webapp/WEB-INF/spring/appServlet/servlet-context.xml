@@ -7,13 +7,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 	<!-- @Controller 어노테이션이 선언된 빈(Bean)을 활성화하지만 빈(Bean)을 검색하거나 매핑 할 수 없다. -->
 	<annotation-driven />
-	
+
 	<!-- DispatcherServlet 클래스가 통제하는 서블릿이 아닌 파일들에 대한 실행을 담당한다. -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/img/**" location="/resources/img/" />
 	<resources mapping="/js/**" location="/resources/js/" />
-	
+	<resources mapping="/imgUpload/**" location="/resources/imgUpload/" />
+
 	<!-- 뷰 설정에 대한 등록을 설정한다. -->
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -22,9 +23,25 @@
 		<!-- 뷰의 실행 확장자를 설정하며 설정된 확장자는 명시하지 않아도 된다. -->
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-	
+
+
 	<!-- 빈(Bean)의 등록 여부와 관계없이 어노테이션을 활성화한다. -->
 	<context:component-scan
 		base-package="project.steam.abc" />
+
+
+	<!-- 업로드 패스 설정 -->
+	<beans:bean class="java.lang.String" id="uploadPath">
+		<beans:constructor-arg
+			value="C:\spring_workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ABC_MART\resources" />
+	</beans:bean>
+
+	<!-- 일반 파일 업로드 경로 -->
+
+	<beans:bean
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		id="multipartResolver">
+		<beans:property name="maxUploadSize" value="10485760" />
+	</beans:bean>
+
 </beans:beans>

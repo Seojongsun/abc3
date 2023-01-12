@@ -11,6 +11,17 @@
 
 ${reviewDTO}
 
+
+<div class="inputArea">
+   <label for="rvImg">이미지</label>
+   <p>원본 이미지</p>
+   <img src="${pageContext.request.contextPath}/${reviewDTO.rvimg}" class="oriImg"/>
+   
+   <p>썸네일</p>
+   <img src="${pageContext.request.contextPath}/${reviewDTO.rvthumbimg}" class="thumbImg"/>
+</div>
+
+
 <div>
 <a href="./ReviewUpdate?rvno=${reviewDTO.rvno}" >
 리뷰 수정

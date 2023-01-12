@@ -40,13 +40,21 @@ public class ReviewDTO {
 	private String rvrating;
 	private String rvsize;
 	private String rvcolor;
+	
+	// ======= 리뷰 관련 파일 ======
 	private byte rvfile;
+	private String rvimg;
+	private String rvthumbimg;
 	
 	
 	// ========= 나의사이즈 ==========
 	private String mysize;
 	private String myfootball;
 	private String myinstep;
+	
+	
+	
+	
 	
 		
 	

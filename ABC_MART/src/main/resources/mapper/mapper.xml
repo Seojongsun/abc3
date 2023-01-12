@@ -65,6 +65,13 @@ COMMENT ON COLUMN review.myinstep IS '나의 평소 발등 사이즈';
 
 <!-- - 시퀀스 삭제 -->
 
+<!--  컬럼 추가 1
+
+ALTER TABLE review ADD (rvimg VARCHAR(200), rvthumbimg VARCHAR(200))
+
+컬럼 추가 2 (기본 값, NOT NULL 지정)
+ALTER TABLE emp ADD email VARCHAR(25) DEFAULT 'test@test.com' NOT NULL; -->
+
      
      
     <select id="selectAll" resultType="ReviewDTO">
@@ -104,9 +111,13 @@ COMMENT ON COLUMN review.myinstep IS '나의 평소 발등 사이즈';
     rvsize, 
     rvcolor, 
     rvfile,
+    rvimg,
+    rvthumbimg,
     mysize,
     myfootball,
-    myinstep from review
+    myinstep 
+    
+    from review
     
     where rvno = #{rvno}
     
@@ -128,6 +139,8 @@ COMMENT ON COLUMN review.myinstep IS '나의 평소 발등 사이즈';
     rvsize, 
     rvcolor, 
 <!--     rvfile, -->
+	rvimg,
+	rvthumbimg,
     mysize,
     myfootball,
     myinstep
@@ -143,6 +156,8 @@ COMMENT ON COLUMN review.myinstep IS '나의 평소 발등 사이즈';
     #{rvsize}, 
     #{rvcolor}, 
 <!--     #{rvfile},  -->
+	#{rvimg},
+	#{rvthumbimg},
     #{mysize}, 
     #{myfootball}, 
     #{myinstep}
