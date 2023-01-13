@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import project.steam.abc.review.dao.ReviewDAO;
 import project.steam.abc.review.dto.ReviewDTO;
+import project.steam.abc.review.utils.Paging;
 
 @Service
 public class ReviewService {
@@ -39,6 +40,17 @@ public class ReviewService {
 	
 	public void reviewDelete(int rvno) {
 		reviewDAO.delete(rvno);
+	}
+	
+	
+	// ============ 리뷰 목록 조회
+	public List<ReviewDTO> list (Paging paging) throws Exception{
+		return reviewDAO.list(paging);
+	}
+	
+	// ============== 리뷰 총 갯수
+	public int rvCount () throws Exception{
+		return reviewDAO.rvCount();
 	}
 	
 	

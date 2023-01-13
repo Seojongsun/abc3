@@ -8,8 +8,26 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
-<title> 리뷰 수정 </title>
+<script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
+<title>후기 작성</title>
+
+ <style type="text/css">
+	.inputArea {margin:10px 0;} 
+ 	select { width: 100px;} 
+ 	label {display:inline-block;; width: 70px; padding: 5px;} 
+ 	
+	input {width: 150px;} 
+	
+	.select_img img { width:300px; margin: 20px 0;} 
+}] 
+	
+</style>
+
+
+<meta charset="UTF-8">
+<title>리뷰 수정</title>
 
 
 </head>
@@ -19,28 +37,64 @@
 	<button type="button" onclick="location.href='./ReviewSelect'">홈</button>
 
 
-	<form id="update" name="update" action="./ReviewUpdate" method="post">
+	<form id="update" name="update" action="./ReviewUpdate" method="post" enctype="multipart/form-data">
 		<!-- <form  id="insert" name="insert" action="./ReviewInsert" method="post" enctype="multipart/form-data"> -->
-<%-- 		<c:set var="rvdate2" value="<%=new java.util.Date()%>"/> --%>
+		<%-- 		<c:set var="rvdate2" value="<%=new java.util.Date()%>"/> --%>
 
-<%-- 		임시 리뷰 번호 <input type="number" name="rvno" id="rvno" value="${param.rvno}" readonly="readonly"> <br> --%>
-		임시 리뷰내용 <input type="text" name="rvcontent" id="rvcontent" value="${reviewDTO.rvcontent}"> <br>
-		임시 오더넘버 <input type="number" name="rvorderno" id="rvorderno" value="${reviewDTO.rvorderno}">
-		<br> 임시 아이디 <input type="text" name="mid" id="mid" value="${reviewDTO.mid}"> <br>
+<%-- 				임시 리뷰 번호 <input type="number" name="rvno" id="rvno" value="${param.rvno}" readonly="readonly"> <br> --%>
+				임시 리뷰 번호 <input type="hidden" name="rvno" id="rvno" value="${param.rvno}" > <br>
+		임시 리뷰내용 <input type="text" name="rvcontent" id="rvcontent"
+			value="${reviewDTO.rvcontent}"> <br> 임시 오더넘버 <input
+			type="number" name="rvorderno" id="rvorderno"
+			value="${reviewDTO.rvorderno}"> <br> 임시 아이디 <input
+			type="text" name="mid" id="mid" value="${reviewDTO.mid}"> <br>
 
-<!-- 		 임시 날짜 <input type="text" name="rvdate" id="rvdate" > -->
-<%-- 		 value="<fmt:formatDate value="${rvdate2}" pattern="YYYY-MM-DD "/>">	<br> --%>
+		<!-- 		 임시 날짜 <input type="text" name="rvdate" id="rvdate" > -->
+		<%-- 		 value="<fmt:formatDate value="${rvdate2}" pattern="YYYY-MM-DD "/>">	<br> --%>
 
-		임시 평점 <input type="text" name="rvrating" id="rvrating" value="${reviewDTO.rvrating}"> <br>
-		임시 사이즈평가 <input type="text" name="rvsize" id="rvsize" value="${reviewDTO.rvsize}"> <br>
-		임시 컬러평가 <input type="text" name="rvcolor" id="rvcolor" value="${reviewDTO.rvcolor}"> <br>
+		임시 평점 <input type="text" name="rvrating" id="rvrating"	value="${reviewDTO.rvrating}"> <br> 임시 사이즈평가
+			 <input type="text" name="rvsize" id="rvsize" value="${reviewDTO.rvsize}">
+		<br> 임시 컬러평가 <input type="text" name="rvcolor" id="rvcolor" value="${reviewDTO.rvcolor}"> <br>
 
 		<!--  임시 파일 <input type="file" name="rvfile" id="rvfile">	<br> -->
 
-		임시 나의사이즈 <input type="text" name="mysize" id="mysize" value="${reviewDTO.mysize}"> <br>
-		임시 나의발볼 <input type="text" name="myfootball" id="myfootball" value="${reviewDTO.myfootball}">
-		<br> 임시 나의발등 <input type="text" name="myinstep" id="myinstep" value="${reviewDTO.myinstep}">
-		<br>
+
+		<div class="inputArea">
+			<label for="rvImg">이미지</label> <input type="file" id="rvImg"
+				name="file" />
+			<div class="select_img">
+				<img src="${pageContext.request.contextPath}/${reviewDTO.rvimg}" />
+				
+					<input type="hidden" name="rvimg" value="${reviewDTO.rvimg}">
+					<input type="hidden" name="rvthumbimg" value="${reviewDTO.rvthumbimg}">
+			</div>
+
+			<script type="text/javascript">
+				$("#rvImg").change(
+						function() {
+							if (this.files && this.files[0]) {
+								var reader = new FileReader;
+								reader.onload = function(data) {
+									$(".select_img img").attr("src",
+											data.target.result).width(100);
+								}
+								reader.readAsDataURL(this.files[0]);
+							}
+						});
+			</script>
+
+			<%=request.getRealPath("/")%>
+
+
+		</div>
+
+
+		임시 나의사이즈 <input type="text" name="mysize" id="mysize"
+			value="${reviewDTO.mysize}"> <br> 임시 나의발볼 <input
+			type="text" name="myfootball" id="myfootball"
+			value="${reviewDTO.myfootball}"> <br> 임시 나의발등 <input
+			type="text" name="myinstep" id="myinstep"
+			value="${reviewDTO.myinstep}"> <br>
 
 		<div style="text-align: center;">
 			--> <input type="submit" value="상품 후기 등록"> <input

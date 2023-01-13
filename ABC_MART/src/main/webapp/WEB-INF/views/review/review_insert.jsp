@@ -61,7 +61,8 @@
 		<div class="inputArea">
    <label for="rvImg">이미지</label>
    <input type="file" id="rvImg" name="file" />
-   <div class="select_img"><img src="" /></div>
+   <div class="select_img"><img src="" />
+   </div>
    
    <script type="text/javascript">
    $("#rvImg").change(function(){

@@ -72,6 +72,10 @@ ALTER TABLE review ADD (rvimg VARCHAR(200), rvthumbimg VARCHAR(200))
 컬럼 추가 2 (기본 값, NOT NULL 지정)
 ALTER TABLE emp ADD email VARCHAR(25) DEFAULT 'test@test.com' NOT NULL; -->
 
+     <!-- 리뷰 복사 
+     insert into review(rvno, rvcontent, rvorderno)
+    select rvno_seq.nextval, rvcontent, rvorderno from review;
+     -->
      
      
     <select id="selectAll" resultType="ReviewDTO">
@@ -182,7 +186,10 @@ ALTER TABLE emp ADD email VARCHAR(25) DEFAULT 'test@test.com' NOT NULL; -->
     rvrating	= #{rvrating},
     rvsize	= #{rvsize},
     rvcolor	= #{rvcolor},
-<!--     rvfile = #{rvfile} -->
+<!--     rvfile = #{rvfile}, -->
+	rvimg = #{rvimg},
+	rvthumbimg = #{rvthumbimg},
+	
     mysize = #{mysize},
     myfootball	= #{myfootball},
     myinstep	= #{myinstep}
@@ -190,6 +197,8 @@ ALTER TABLE emp ADD email VARCHAR(25) DEFAULT 'test@test.com' NOT NULL; -->
     where rvno = #{rvno}
     
     </update>
+    
+    
     
     <delete id="delete" parameterType="ReviewDTO">
     
@@ -200,9 +209,34 @@ ALTER TABLE emp ADD email VARCHAR(25) DEFAULT 'test@test.com' NOT NULL; -->
     
     
     </delete>
+    
+<!--     리뷰 페이징 처리 -->
+    
+    <select id="listPage" resultType="ReviewDTO" parameterType="ReviewDTO">
+   SELECT rvno, rvcontent, rvorderno, rvdate
+    from (
+        select rvno, rvcontent, rvorderno, rvdate,
+            row_number() over (order by rvno desc) as rnum
+        
+        
+         from review 
+            ) 
+            where rnum between #{rowStart} and #{rowEnd}
+            order by rvo desc
+<!--                 where rnum between 1 and 10 -->
+<!--                 order by rvno desc; -->
    
+  </select>
   
+  <!--  리뷰 총 갯수  -->
+  <select id="rvCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(rvno)
+		  FROM review
+		 WHERE rvno > 0
+	]]>
+	</select>
 
-
+	
 
 </mapper>

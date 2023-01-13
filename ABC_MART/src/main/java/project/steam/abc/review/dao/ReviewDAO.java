@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import project.steam.abc.review.dto.ReviewDTO;
+import project.steam.abc.review.utils.Paging;
 
 @Repository
 
@@ -51,6 +52,16 @@ public class ReviewDAO {
 	}
 	
 	
+	
+	// =========== 리뷰 목록 조회 =========
+	public List<ReviewDTO> list (Paging paging) throws Exception{
+		return sqlSessionTemplate.selectList("mapper.listPage", paging);
+	}
+	
+	// ============== 리뷰 총 갯수 ======
+	public int rvCount () throws Exception{
+		return sqlSessionTemplate.selectOne("mapper.rvcount");
+	}
 	
 
 }

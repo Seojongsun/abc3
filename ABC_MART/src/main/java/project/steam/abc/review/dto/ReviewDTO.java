@@ -42,7 +42,7 @@ public class ReviewDTO {
 	private String rvcolor;
 	
 	// ======= 리뷰 관련 파일 ======
-	private byte rvfile;
+//	private byte rvfile;
 	private String rvimg;
 	private String rvthumbimg;
 	

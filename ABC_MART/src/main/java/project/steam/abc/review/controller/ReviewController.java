@@ -1,10 +1,13 @@
 package project.steam.abc.review.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.extern.slf4j.Slf4j;
 import project.steam.abc.review.dto.ReviewDTO;
 import project.steam.abc.review.service.ReviewService;
+import project.steam.abc.review.utils.Paging;
 import project.steam.abc.review.utils.UploadFileUtils;
 
 @Controller
@@ -104,22 +108,65 @@ public class ReviewController {
 
 	// ========== 리뷰 수정 ==============
 
-	@RequestMapping(value = "ReviewUpdate", method = RequestMethod.GET)
+	@RequestMapping(value = "/ReviewUpdate", method = RequestMethod.GET)
 
 	public String update(Model model, ReviewDTO reviewDTO) {
 
 		model.addAttribute("reviewDTO", reviewService.reviewSelect(reviewDTO.getRvno()));
+//		model.addAttribute("list", reviewService.reviewSelectAll());
 		return "./review/review_update";
 	}
 
-	@RequestMapping(value = "ReviewUpdate", method = RequestMethod.POST)
+	@RequestMapping(value = "/ReviewUpdate", method = RequestMethod.POST)
 
-	public String update(ReviewDTO reviewDTO) {
+	public String update( MultipartFile file,  ReviewDTO reviewDTO ) throws  Exception {
+		
+		log.info("post reviewDTO review_update");
+		
+//		model.addAttribute("list", reviewService.reviewSelectAll());
+	
 
-		reviewService.reviewUpdate(reviewDTO);
+		   // 새로운 파일이 등록되었는지 확인
+		   if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+			   
+		    // 기존 파일을 삭제
+//		    new File(uploadPath + req.getParameter("rvimg")).delete();
+//		    new File(uploadPath + req.getParameter("rvthumbimg")).delete();
+		    
+		    new File(uploadPath + reviewDTO.getRvimg()).delete();
+		    new File(uploadPath + reviewDTO.getRvthumbimg()).delete();
+		    
+		    // 새로 첨부한 파일을 등록
+		    String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		    String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		    String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+		    
+		    reviewDTO.setRvimg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+		    reviewDTO.setRvthumbimg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		    
+		   } else {  // 새로운 파일이 등록되지 않았다면
+		    // 기존 이미지를 그대로 사용
+//		    reviewDTO.setRvimg(req.getParameter("rvimg"));
+//		    reviewDTO.setRvthumbimg(req.getParameter("rvthumbimg"));
+			   
+		    reviewDTO.setRvimg(reviewDTO.getRvimg());
+		    reviewDTO.setRvimg(reviewDTO.getRvthumbimg());
+		    
+		   }
+		   
+			reviewService.reviewUpdate(reviewDTO);
+			
+			System.out.println("리뷰 디티오 ==========" + reviewDTO);
+			System.out.println("리뷰 서비스 ==========" + reviewService);
+			
+//			model.addAttribute("list", reviewService.reviewSelectAll());
+		
 		return "./review/review_update_view";
 
 	}
+	
+	
+	
 
 	// =========== 리뷰 삭제 ============
 
@@ -137,5 +184,22 @@ public class ReviewController {
 		reviewService.reviewDelete(reviewDTO.getRvno());
 		return "./review/review_delete_view";
 	}
+	
+	
+	
+	
+	// =========== 리뷰 목록 조회
+	
+	@RequestMapping ( value = "/list", method = RequestMethod.GET)
+	public String list ( Model model , Paging paging) throws Exception{
+		model.addAttribute("list", reviewService.list(paging));
+		return "review/list";
+		
+	}
+	
+	
+		
+		
+	}
+	
 
-}
